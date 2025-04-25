@@ -525,12 +525,17 @@ namespace LogicReinc.BlendFarm.Windows
             {
                 await Dispatcher.UIThread.InvokeAsync(() =>
                 {
+                    Console.WriteLine(peekInfo.Engine);
+                    if (peekInfo.Engine == "CYCLES")                currentProject.Engine = EngineType.Cycles;
+                    if (peekInfo.Engine == "BLENDER_EEVEE_NEXT")    currentProject.Engine = EngineType.Eevee;
+
                     currentProject.RenderWidth = peekInfo.RenderWidth;
                     currentProject.RenderHeight = peekInfo.RenderHeight;
                     currentProject.FrameStart = peekInfo.FrameStart;
                     currentProject.FrameEnd = peekInfo.FrameEnd;
                     currentProject.Samples = peekInfo.Samples;
                     currentProject.TriggerPropertyChange(
+                        nameof(currentProject.Engine),
                         nameof(currentProject.RenderWidth),
                         nameof(currentProject.RenderHeight),
                         nameof(currentProject.FrameStart),
@@ -571,6 +576,7 @@ namespace LogicReinc.BlendFarm.Windows
                 _camerasAvailableBox.IsVisible = true;
             }
             project.TriggerPropertyChange(
+                nameof(project.Engine),
                 nameof(project.CamerasAvailable),
                 nameof(project.Camera),
                 nameof(project.ScenesAvailable),
