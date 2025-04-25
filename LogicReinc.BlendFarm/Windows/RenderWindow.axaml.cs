@@ -528,7 +528,10 @@ namespace LogicReinc.BlendFarm.Windows
                     if (peekInfo.Engine == "CYCLES")                currentProject.Engine = EngineType.Cycles;
                     if (peekInfo.Engine == "BLENDER_EEVEE_NEXT")    currentProject.Engine = EngineType.Eevee;
 
-                    currentProject.AnimationFileFormat = Path.GetFileName(peekInfo.OutputPath) + "#.png"; //TODO: match the # formatting from Blender
+                    currentProject.AnimationFileFormat = Path.GetFileName(peekInfo.OutputPath); //TODO: match the # formatting from Blender
+                    if (!currentProject.AnimationFileFormat.Contains("#")) currentProject.AnimationFileFormat += "#";
+                    currentProject.AnimationFileFormat += ".png";
+
                     currentProject.RenderWidth = peekInfo.RenderWidth;
                     currentProject.RenderHeight = peekInfo.RenderHeight;
                     currentProject.FrameStart = peekInfo.FrameStart;
